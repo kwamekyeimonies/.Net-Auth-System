@@ -1,12 +1,14 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthSystem.Controllers
 {
     [ApiController]
+    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-        [HttpGet("/login")]
+        [HttpGet("role-login")]
         public IActionResult Login() =>
             SignIn(new ClaimsPrincipal(
                 new ClaimsIdentity(
@@ -23,5 +25,18 @@ namespace AuthSystem.Controllers
             authenticationScheme: "cookie"
             );
 
+    }
+
+    [HttpGet("login-identity")]
+    public async Task<IActionResult> Login(SignInManager<IdentityUser> signInManager)
+    {
+        await signInManager.PasswordSignInAsync(
+            "tenkorangd5@gmail.com",
+            "password",
+            false,
+            false
+        );
+
+        return Ok();
     }
 }
