@@ -10,7 +10,7 @@ builder.Services.AddAuthentication(
 .AddCookie("cookie");
 
 builder.Services.AddAuthorization();
-
+ 
 builder.Services.AddControllers();
 
 var app = builder.Build();
